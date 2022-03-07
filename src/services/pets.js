@@ -1,4 +1,9 @@
-import client from '../providers/client'
+import client from "../providers/client"
 
-export const listPets = () =>
-  client.get('pets/0rp4knn/a398510e-0800-47c2-94c1-29c990ac2bb7')
+const userId = process.env.REACT_APP_ID_USER
+
+// const userId = "0xql5hi"
+
+export const listPets = async () => client.get(`/pets/${userId}`)
+export const delPet = async (id) => client.delete(`/pets/${userId}/${id}`)
+export const createPet = async (data) => client.post(`/pets/${userId}`, data)
