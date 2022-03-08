@@ -1,23 +1,23 @@
-import React from 'react'
-import { Link, Outlet } from 'react-router-dom'
-import AuthStatus from './AuthStatus'
+import React from "react"
+import { Outlet } from "react-router-dom"
+import styled from "styled-components"
+import AuthStatus from "./Auth/AuthStatus/index"
+import bgTexture from "../assets/image/bg-texture.png"
 
 export default function Layout() {
   return (
-    <div>
+    <Container>
       <AuthStatus />
-      <ul>
-        <li>
-          <Link to="/">Rota Pública</Link>
-        </li>
-        <li>
-          <Link to="/private-page">Rota Privada</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-      </ul>
       <Outlet />
-    </div>
+    </Container>
   )
 }
+
+const Container = styled.div`
+  min-height: 100vh;
+  max-height: auto;
+  background-color: #ad4;
+  background-image: url(${bgTexture});
+  height: 100%;
+  width: 100%;
+`

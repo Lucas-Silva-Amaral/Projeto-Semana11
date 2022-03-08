@@ -1,8 +1,11 @@
 import React from "react"
 import { useAuth } from "../../context/auth-context"
 import { useLocation, useNavigate } from "react-router-dom"
+import { ContainerForm, ContentForm, Label, Input, BtnLogin } from "./styles"
+import { Navigate } from "react-router-dom"
+import { userId } from "../../services/pets"
 
-export default function Login() {
+export default function FormLogin() {
   const auth = useAuth()
   const location = useLocation()
   const navigate = useNavigate()
@@ -20,20 +23,24 @@ export default function Login() {
       password,
     }
     auth.login(data, () => navigate(from, { replace: true }))
+    navigate(`/${userId}`)
   }
 
   return (
-    <div>
-      Login
+    <ContainerForm>
       <form onSubmit={handleSubmit}>
-        <label>
-          E-mail: <input type="email" name="email" />
-        </label>
-        <label>
-          Senha: <input type="password" name="password" />
-        </label>
-        <button type="submit">Login</button>
+        <ContentForm>
+          <Label>E-mail:</Label>
+          <Input type="email" name="email" />
+        </ContentForm>
+        <ContentForm>
+          <Label>Senha:</Label>
+          <Input type="password" name="password" />
+        </ContentForm>
+        <BtnLogin type="submit" onClick={() => Navigate("/pets")}>
+          Login
+        </BtnLogin>
       </form>
-    </div>
+    </ContainerForm>
   )
 }

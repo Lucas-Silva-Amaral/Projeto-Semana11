@@ -1,6 +1,6 @@
-import { createContext, useContext, useState } from "react"
-import { authProvider } from "../providers/auth"
-import { useLocation, Navigate } from "react-router-dom"
+import { createContext, useContext, useState } from 'react'
+import { authProvider } from '../providers/auth'
+import { useLocation, Navigate } from 'react-router-dom'
 
 const AuthContext = createContext(null)
 
