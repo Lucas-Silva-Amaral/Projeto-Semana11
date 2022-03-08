@@ -16,7 +16,7 @@ export default function Layout() {
 const Container = styled.div`
   min-height: 100vh;
   max-height: auto;
-  background-color: #ad4;
+  background-color: #60afff;
   background-image: url(${bgTexture});
   height: 100%;
   width: 100%;

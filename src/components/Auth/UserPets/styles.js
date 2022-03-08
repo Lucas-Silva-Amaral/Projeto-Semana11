@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import bgTexture from "../../../assets/image/bg-texture.png"
 
 export const Container = styled.section`
   height: auto;
@@ -10,4 +11,5 @@ export const Container = styled.section`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   padding: 1rem;
   backdrop-filter: blur(150px);
+  background-image: url(${bgTexture});
 `

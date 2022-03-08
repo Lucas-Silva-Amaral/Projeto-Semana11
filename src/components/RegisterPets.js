@@ -27,8 +27,20 @@ export const RegisterPets = () => {
   const onSubmit = async (event) => {
     event.preventDefault()
     try {
-      await createPet(form)
-      setPreview(form)
+      if (
+        form.name === "" ||
+        form.breed === "" ||
+        form.age === "" ||
+        form.species === "" ||
+        form.gender === "" ||
+        form.url === ""
+      ) {
+        toast.error("Preencha todos os campos!")
+      } else {
+        await createPet(form)
+        toast.success("Pet cadastrado com sucesso!")
+        setPreview(form)
+      }
       setForm({
         name: "",
         breed: "",
@@ -37,7 +49,6 @@ export const RegisterPets = () => {
         gender: "",
         url: "",
       })
-      toast.success("Pet Cadastrado com sucesso!")
     } catch (error) {
       console.log(error.message)
       toast.warn("Erro ao cadastrar o pet")
@@ -52,6 +63,7 @@ export const RegisterPets = () => {
         <div>
           <label>Nome:</label>
           <input
+            placeholder="Digite o nome do pet"
             type="text"
             name="name"
             value={form.name}
@@ -61,6 +73,7 @@ export const RegisterPets = () => {
         <div>
           <label>Raça:</label>
           <input
+            placeholder="Digite a raça do pet"
             type="text"
             name="breed"
             value={form.breed}
@@ -70,6 +83,7 @@ export const RegisterPets = () => {
         <div>
           <label>Idade:</label>
           <input
+            placeholder="Digite a idade do pet"
             type="number"
             name="age"
             value={form.age}
@@ -80,21 +94,22 @@ export const RegisterPets = () => {
           <label>Especie:</label>
           <select name="species" value={form.species} onChange={handleChange}>
             <option value=""></option>
-            <option value="dog">Cachorro</option>
-            <option value="cat">Gato</option>
+            <option value="Cachorro">Cachorro</option>
+            <option value="Gato">Gato</option>
           </select>
         </div>
         <div>
           <label>Gênero:</label>
           <select name="gender" value={form.gender} onChange={handleChange}>
             <option value=""></option>
-            <option value="male">Macho</option>
-            <option value="female">Fêmea</option>
+            <option value="Macho">Macho</option>
+            <option value="Fêmea">Fêmea</option>
           </select>
         </div>
         <div>
           <label>Image:</label>
           <input
+            placeholder="Digite a url da imagem do pet"
             type="text"
             name="url"
             value={form.url}
@@ -105,7 +120,7 @@ export const RegisterPets = () => {
       </form>
       <ListPets>Listar Pets</ListPets>
       {preview.name && (
-        <div>
+        <Preview>
           <h4>Último pet cadastrado</h4>
           <div>
             <ul>
@@ -114,10 +129,10 @@ export const RegisterPets = () => {
               <li>Idade: {preview.age}</li>
               <li>Especie: {preview.species}</li>
               <li>Gênero: {preview.gender}</li>
-              <img src={preview.url} alt={preview.name} />
             </ul>
+            <img src={preview.url} alt={preview.name} />
           </div>
-        </div>
+        </Preview>
       )}
     </Container>
   )
@@ -138,7 +153,6 @@ const Container = styled.div`
     font-size: 5rem;
     font-weight: bold;
     margin-bottom: 2rem;
-    z-index: 99999;
     margin-bottom: 50px;
   }
 
@@ -147,6 +161,7 @@ const Container = styled.div`
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    box-sizing: border-box;
 
     div {
       display: flex;
@@ -165,6 +180,13 @@ const Container = styled.div`
         margin-bottom: 0.5rem;
         font-size: 1.5rem;
         width: 100%;
+        box-sizing: border-box;
+        transition: 0.3s;
+        &:focus {
+          border: none;
+          outline: none;
+          transition: 0.5s;
+        }
       }
 
       select {
@@ -196,6 +218,7 @@ const Container = styled.div`
       background: #ccc;
       color: #000;
       font-weight: bold;
+      cursor: pointer;
     }
   }
 `
@@ -206,7 +229,7 @@ const ListPets = styled(Link).attrs({
   background-color: #fff;
   border: none;
   padding: 20px;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 1.1rem;
   align-items: center;
   cursor: pointer;
@@ -221,5 +244,46 @@ const ListPets = styled(Link).attrs({
     background-color: rgba(255, 255, 255, 0.6);
     transition: all 600ms ease;
     transform: scale(1.1);
+  }
+`
+
+const Preview = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+
+  h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+
+  div {
+    display: flex;
+    gap: 10rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    margin-bottom: 20px;
+
+    ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+
+      li {
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5;
+      }
+
+      img {
+        max-width: 100%;
+      }
+    }
   }
 `
